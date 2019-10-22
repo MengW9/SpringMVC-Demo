@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--扫描Controller,并将其生命周期纳入Spring管理-->
+    <context:annotation-config/>
+
+    <!--配置自动扫描的包-->
+    <context:component-scan base-package="com.mvc"></context:component-scan>
+
+    <!--配置试图解析器 如何把handler 方法返回值解析为实际的物理视图  视图定位到/WEB-INF/views 这个目录下-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!--注解驱动，以使得访问路径与方法的匹配可以通过注解配置-->
+    <mvc:annotation-driven/>
+
+    <!--全部默认配置-->
+    <!--    <mvc:default-servlet-handler />-->
+
+    <!--通过location，可以重新定义资源文件的位置-->
+    <mvc:resources mapping="/resources/**" location="classpath:resources/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+
+
+
+    <!--<bean id="simpleUrlHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                &lt;!&ndash; /hello 路径的请求交给 id 为 helloController 的控制器处理&ndash;&gt;
+                <prop key="/hello">helloController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="helloController" class="com.mvc.controller.HelloController"></bean>-->
+
+</beans>
